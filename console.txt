@@ -1,3 +1,6 @@
 This file is created at consone
 
 created new branch
+
+
+git merge form terminal

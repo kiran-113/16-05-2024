@@ -18,3 +18,5 @@ git push
 git pull
 
 merge conflit
+
+sample merge

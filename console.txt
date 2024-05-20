@@ -20,3 +20,5 @@ git pull
 merge conflit
 
 sample merge
+
+merge conflit

@@ -17,11 +17,6 @@ jobs:
         id: branch_name
         run: echo "${{ github.event.pull_request.head.ref }}" > branch_name.txt
 
-      - name: Set up Git
-        run: |
-          git config --global user.email "nakirikantikiran@outlook.com"
-          git config --global user.name "kiran-113"
-
       - name: Create tag
         id: create_tag
         env:

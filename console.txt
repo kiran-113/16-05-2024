@@ -10,18 +10,3 @@ git clone
 git checkout -b branchname
 
 git add .   or git add filename
-
-git commit -m "message"
-
-git push
-
-git pull
-
-merge conflit
-
-sample merge
-
-merge conflit
-
-
-sample

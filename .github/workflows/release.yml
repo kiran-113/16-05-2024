@@ -13,11 +13,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # Disable persisting credentials to prevent any accidental use
+          
+      - name: Setup Git to Use Token
+        run: |
+          echo "https://${{ secrets.GH_TOKEN }}:x-oauth-basic@github.com" > ~/.git-credentials
+          git config --global credential.helper store
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.8.1'  # Use Node.js 18 (latest LTS)
+          node-version: '20.8.1'  # Use Node.js 20.8.1
 
       - name: Cache npm dependencies
         uses: actions/cache@v3
@@ -28,7 +35,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install --no-save semantic-release@latest @semantic-release/npm@latest @semantic-release/git@latest @semantic-release/github@latest @semantic-release/commit-analyzer@latest @semantic-release/release-notes-generator@latest @semantic-release/changelog@latest
+        run: npm install --no-save semantic-release @semantic-release/npm @semantic-release/git @semantic-release/github @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog
 
       - name: Run release
         env:

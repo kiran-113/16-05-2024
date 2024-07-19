@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      
+      - name: Configure Git
+        run: |
+          git config --global user.email "nakirikantikiran@outlook.com"
+          git config --global user.name "kiran-113"  
 
       - name: Get branch name
         id: branch_name

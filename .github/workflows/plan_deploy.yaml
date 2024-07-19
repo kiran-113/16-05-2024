@@ -9,6 +9,7 @@ jobs:
   tag_pr:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -33,3 +34,8 @@ jobs:
       - name: Display tag
         if: steps.create_tag.outputs.tag
         run: echo "Created tag ${{ steps.create_tag.outputs.tag }}"
+      
+      - name: Run custom release script with semversioner
+        run: |
+          pip install semversioner
+          ./git-release.sh

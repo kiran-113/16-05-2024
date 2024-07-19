@@ -38,4 +38,5 @@ jobs:
       - name: Run custom release script with semversioner
         run: |
           pip install semversioner
+          chmod +x ./.github/workflows/git-release.sh
           ./.github/workflows/git-release.sh

@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'  # Use Node.js 18 (latest LTS)
+          node-version: '20.8.1'  # Use Node.js 18 (latest LTS)
 
       - name: Cache npm dependencies
         uses: actions/cache@v3

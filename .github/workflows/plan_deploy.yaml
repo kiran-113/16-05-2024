@@ -3,45 +3,100 @@ on:
     types: [closed]
 
 permissions:
-  contents: write  # Allow writing contents
+  contents: write
 
 jobs:
-  tag_pr:
+  release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Configure Git
         run: |
-          git config --global user.email "nakirikantikiran@outlook.com"
-          git config --global user.name "kiran-113"  
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "Your Name"
 
       - name: Get branch name
         id: branch_name
         run: echo "${{ github.event.pull_request.head.ref }}" > branch_name.txt
 
-      - name: Create tag
-        id: create_tag
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Debug Branch
         run: |
           branch=$(<branch_name.txt)
-          if [[ $branch =~ modules/v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            tag="v${BASH_REMATCH[1]}"
-            git tag $tag $GITHUB_SHA
-            git push https://${{ secrets.GITHUB_TOKEN }}@github.com/kiran-113/16-05-2024.git $tag
-            echo "::set-output name=tag::$tag"
+          echo "Branch: $branch"
+          if [[ $branch =~ modules\/v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+            echo "Branch name matches pattern"
+          else
+            echo "Branch name does not match version pattern"
           fi
-
-      - name: Display tag
-        if: steps.create_tag.outputs.tag
-        run: echo "Created tag ${{ steps.create_tag.outputs.tag }}"
-      
-      - name: Run custom release script with semversioner
+          
+      - name: Install dependencies and run custom release script
         run: |
           pip install semversioner
           chmod +x ./.github/workflows/git-release.sh
           ./.github/workflows/git-release.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# on:
+#   pull_request:
+#     types: [closed]
+
+# permissions:
+#   contents: write  # Allow writing contents
+
+# jobs:
+#   tag_pr:
+#     if: github.event.pull_request.merged == true
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+      
+#       - name: Configure Git
+#         run: |
+#           git config --global user.email "nakirikantikiran@outlook.com"
+#           git config --global user.name "kiran-113"  
+
+#       - name: Get branch name
+#         id: branch_name
+#         run: echo "${{ github.event.pull_request.head.ref }}" > branch_name.txt
+
+#       - name: Create tag
+#         id: create_tag
+#         env:
+#           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: |
+#           branch=$(<branch_name.txt)
+#           if [[ $branch =~ modules/v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+#             tag="v${BASH_REMATCH[1]}"
+#             git tag $tag $GITHUB_SHA
+#             git push https://${{ secrets.GITHUB_TOKEN }}@github.com/kiran-113/16-05-2024.git $tag
+#             echo "::set-output name=tag::$tag"
+#           fi
+
+#       - name: Display tag
+#         if: steps.create_tag.outputs.tag
+#         run: echo "Created tag ${{ steps.create_tag.outputs.tag }}"
+      
+#       - name: Run custom release script with semversioner
+#         run: |
+#           pip install semversioner
+#           chmod +x ./.github/workflows/git-release.sh
+#           ./.github/workflows/git-release.sh

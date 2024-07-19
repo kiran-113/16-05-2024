@@ -11,12 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Node.js (latest)
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 'latest'  # Uses the latest stable Node.js version
+          node-version: 'latest'
 
-      - name: Install semantic-release
+      - name: Install dependencies
         run: npm install -g semantic-release
 
       - name: Configure semantic-release
@@ -25,6 +25,5 @@ jobs:
 
       - name: Run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Replace with your GitHub token secret name
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-

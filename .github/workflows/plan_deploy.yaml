@@ -25,19 +25,15 @@ jobs:
 
       - name: Debug Branch
         run: |
-          branch=$(<branch_name.txt)
-          echo "Branch: $branch"
-          if [[ $branch =~ modules\/v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            echo "Branch name matches pattern"
-          else
-            echo "Branch name does not match version pattern"
-          fi
+
           
       - name: Install dependencies and run custom release script
         run: |
           pip install semversioner
           chmod +x ./.github/workflows/git-release.sh
           ./.github/workflows/git-release.sh
+        env: 
+          GITHUB_BRANCH: ${{ github.head_ref }}
 
 
 

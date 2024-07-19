@@ -15,4 +15,4 @@ tag=$(semversioner current-version)
 echo "Committing updated files to the repository..."
 git add .
 git commit -m "Update files for new version '${tag}' [skip ci]"
-git push origin "${{ github.head_ref }}"
+git push origin "${{ GITHUB_BRANCH }}"

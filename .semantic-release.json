@@ -1,0 +1,5 @@
+{
+    "branches": ["main", "next","develop"],
+    "analyzeCommits": ["feat", "fix", "chore", "docs"],
+    "release": {"git": {"changelog": "CHANGELOG.md"}}
+  }
